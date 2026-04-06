@@ -1,5 +1,14 @@
 package co.edu.uptc.repository;
 
-public class ISocioRepositorio {
-    
+import java.util.List;
+import java.util.Optional;
+
+import co.edu.uptc.model.Socio;
+
+public interface ISocioRepositorio {
+    void guardar(Socio s);    
+    Optional<Socio> buscarPorId(String id); 
+    List<Socio> listarTodos();
+    void actualizar(Socio s);
+    void eliminar(String id);
 }
