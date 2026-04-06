@@ -7,8 +7,8 @@ import co.edu.uptc.model.Socio;
 
 public interface ISocioRepositorio {
     void guardar(Socio s);    
-    Optional<Socio> buscarPorId(String id); 
+    Optional<Socio> buscarPorId(int id); 
     List<Socio> listarTodos();
     void actualizar(Socio s);
-    void eliminar(String id);
+    void eliminar(int id);
 }
