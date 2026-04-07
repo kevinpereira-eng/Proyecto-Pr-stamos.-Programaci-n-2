@@ -6,11 +6,15 @@ public class Pago {
     private static int contador = 1000;
 
     private int id;
-    private double montoPagado, capital, interes, saldoInicial, saldoFinal;
-    private LocalDate fechaPago;
+    private double montoPagado;
+    private double capital;
+    private double interes;
+    private double saldoInicial;
+    private double saldoFinal;
+    private java.time.LocalDate fechaPago;
 
     public Pago(int id, double montoPagado, double capital, double interes, double saldoInicial, double saldoFinal,
-            LocalDate fechaPago) {
+            java.time.LocalDate fechaPago) {
         this.id = contador++;
         this.montoPagado = montoPagado;
         this.capital = capital;
@@ -21,14 +25,11 @@ public class Pago {
     }
 
     public Pago() {
+        this.id = contador++;
     }
 
-    public static int getContador() {
-        return contador;
-    }
-
-    public static void setContador(int contador) {
-        Pago.contador = contador;
+    public static void setContador(int nuevoValor) {
+        contador = nuevoValor;
     }
 
     public int getId() {

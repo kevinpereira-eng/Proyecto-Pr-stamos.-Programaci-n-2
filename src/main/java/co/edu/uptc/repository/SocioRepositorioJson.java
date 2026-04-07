@@ -21,7 +21,31 @@ public class SocioRepositorioJson implements ISocioRepositorio {
 
     public SocioRepositorioJson(String archivoData) {
         this.archivoData = archivoData;
-        this.gson = new Gson();
+        this.gson = new com.google.gson.GsonBuilder()
+                .registerTypeAdapter(java.time.LocalDate.class, new com.google.gson.TypeAdapter<java.time.LocalDate>() {
+                    @Override
+                    public void write(com.google.gson.stream.JsonWriter out, java.time.LocalDate value) throws java.io.IOException {
+                        if (value == null) { out.nullValue(); return; }
+                        out.value(value.toString());
+                    }
+                    @Override
+                    public java.time.LocalDate read(com.google.gson.stream.JsonReader in) throws java.io.IOException {
+                        String s = in.nextString();
+                        return s == null ? null : java.time.LocalDate.parse(s);
+                    }
+                })
+                .setPrettyPrinting()
+                .create();
+        inicializarContador();
+    }
+
+    private void inicializarContador() {
+        List<Socio> socios = leerArchivo();
+        int maxId = socios.stream()
+                .mapToInt(Socio::getId)
+                .max()
+                .orElse(100000);
+        Socio.setContador(maxId + 1);
     }
 
     // leer y escribir el Json:
@@ -41,15 +65,23 @@ public class SocioRepositorioJson implements ISocioRepositorio {
         } catch (IOException e) {
             logger.severe("Error al leer el archivo: " + e.getMessage());
             return new ArrayList<>();
+        } catch (com.google.gson.JsonSyntaxException e) {
+            logger.severe("Error de sintaxis en el archivo JSON: " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 
     private void guardarEnArchivo(List<Socio> socios) {
-        try (Writer writer = new FileWriter(archivoData)) {
+        File archivo = new File(archivoData);
+        if (archivo.getParentFile() != null) {
+            archivo.getParentFile().mkdirs();
+        }
+        try (Writer writer = new FileWriter(archivo)) {
             gson.toJson(socios, writer);
             logger.info("Archivo guardado correctamente: " + archivoData);
         } catch (IOException e) {
             logger.severe("Error al escribir el archivo: " + e.getMessage());
+            throw new RuntimeException("No se pudo guardar la información en el archivo: " + e.getMessage());
         }
     }
 

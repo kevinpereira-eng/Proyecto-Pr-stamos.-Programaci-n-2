@@ -1,0 +1,21 @@
+[
+  {
+    "codigo": 1,
+    "plazoMeses": 12,
+    "montoSolicitado": 500000.0,
+    "tasaInteresAnual": 0.1,
+    "estado": "ACTIVO",
+    "fechaInicio": "2026-04-07",
+    "pagos": [
+      {
+        "id": 1000,
+        "montoPagado": 41689.24,
+        "capital": 41647.57,
+        "interes": 41.67,
+        "saldoInicial": 500000.0,
+        "saldoFinal": 458352.43,
+        "fechaPago": "2026-04-08"
+      }
+    ]
+  }
+]

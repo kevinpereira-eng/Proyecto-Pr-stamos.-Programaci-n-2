@@ -6,11 +6,11 @@ public class Socio {
     private static int contador = 100000;
 
     private int id;
-
-    private String nombre, correo;
+    private String nombre;
+    private String correo;
     private double ingresosMensuales;
     private NivelRiesgo nivelRiesgo;
-    private ArrayList<Prestamo> Prestamos;
+    private ArrayList<Prestamo> prestamos = new ArrayList<>();
     
     public Socio(String id, String nombre, String correo, double ingresosMensuales, NivelRiesgo nivelRiesgo) {
         this.id = contador++;
@@ -20,8 +20,12 @@ public class Socio {
         this.nivelRiesgo = nivelRiesgo;
     }
 
-    public Socio(ArrayList<Prestamo> prestamos) {
-        Prestamos = prestamos;
+    public Socio() {
+        this.id = contador++;
+    }
+
+    public static void setContador(int nuevoValor) {
+        contador = nuevoValor;
     }
 
     public int getId() {
@@ -65,18 +69,16 @@ public class Socio {
     }
 
     public ArrayList<Prestamo> getPrestamos() {
-        return Prestamos;
+        return prestamos;
     }
 
     public void setPrestamos(ArrayList<Prestamo> prestamos) {
-        Prestamos = prestamos;
+        this.prestamos = prestamos;
     }
 
     @Override
     public String toString() {
         return "Socio [id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", ingresosMensuales="
-                + ingresosMensuales + ", nivelRiesgo=" + nivelRiesgo + ", Prestamos=" + Prestamos + "]";
+                + ingresosMensuales + ", nivelRiesgo=" + nivelRiesgo + ", prestamos=" + prestamos + "]";
     }
-    
-    
 }

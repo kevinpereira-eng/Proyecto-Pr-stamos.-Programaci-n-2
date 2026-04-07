@@ -6,11 +6,13 @@ import java.util.ArrayList;
 public class Prestamo {
     private static int contador = 1;
 
-    private int codigo, plazoMeses;
-    private double montoSolicitado, tasaInteresAnual;
+    private int codigo;
+    private int plazoMeses;
+    private double montoSolicitado;
+    private double tasaInteresAnual;
     private EstadoPrestamo estado;
     private LocalDate fechaInicio;
-    private ArrayList<Pago> pagos;
+    private ArrayList<Pago> pagos = new ArrayList<>();
     
     public Prestamo(int codigo, int plazoMeses, double montoSolicitado, double tasaInteresAnual, EstadoPrestamo estado,
             LocalDate fechaInicio) {
@@ -22,16 +24,12 @@ public class Prestamo {
         this.fechaInicio = fechaInicio;
     }
 
-    public Prestamo(ArrayList<Pago> pagos) {
-        this.pagos = pagos;
+    public Prestamo() {
+        this.codigo = contador++;
     }
 
-    public static int getContador() {
-        return contador;
-    }
-
-    public static void setContador(int contador) {
-        Prestamo.contador = contador;
+    public static void setContador(int nuevoValor) {
+        contador = nuevoValor;
     }
 
     public int getCodigo() {
@@ -87,7 +85,15 @@ public class Prestamo {
     }
 
     public void setPagos(ArrayList<Pago> pagos) {
-        this.pagos = pagos;
+        this.pagos = (pagos != null) ? pagos : new ArrayList<>();
+    }
+
+    /**
+     * Calcula el total de intereses acumulados (suma de intereses de todos los pagos realizados).
+     */
+    public double calcularInteresAcumulado() {
+        if (pagos == null || pagos.isEmpty()) return 0;
+        return pagos.stream().mapToDouble(Pago::getInteres).sum();
     }
 
     @Override
@@ -96,6 +102,4 @@ public class Prestamo {
                 + ", tasaInteresAnual=" + tasaInteresAnual + ", estado=" + estado + ", fechaInicio=" + fechaInicio
                 + ", pagos=" + pagos + "]";
     }
-
-    
 }

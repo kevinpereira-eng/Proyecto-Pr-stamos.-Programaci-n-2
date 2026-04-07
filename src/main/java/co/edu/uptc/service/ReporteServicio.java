@@ -4,6 +4,7 @@ import co.edu.uptc.model.Prestamo;
 import co.edu.uptc.model.RankingSocio;
 import co.edu.uptc.model.ReporteIngreso;
 import co.edu.uptc.model.Socio;
+import co.edu.uptc.repository.IPrestamoRepositorio;
 import co.edu.uptc.repository.ISocioRepositorio;
 import co.edu.uptc.util.ExportadorReporte;
 
@@ -17,7 +18,7 @@ public class ReporteServicio {
 
     private static final Logger logger = Logger.getLogger(ReporteServicio.class.getName());
 
-    private final IPrestamoRepositorio prestamoRepo;
+    private final IPrestamoRepositorio prestamoRepo; // co.edu.uptc.repository.IPrestamoRepositorio
     private final ISocioRepositorio socioRepo;
     private final ExportadorReporte exportador;
 
