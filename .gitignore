@@ -1,0 +1,14 @@
+# Archivos compilados
+*.class
+
+# Carpeta de compilación (Maven/Gradle)
+target/
+build/
+
+# Archivos del IDE
+.idea/
+.vscode/
+*.iml
+
+# Variables de entorno
+.env
