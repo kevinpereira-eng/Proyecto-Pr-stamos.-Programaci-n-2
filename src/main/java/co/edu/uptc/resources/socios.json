@@ -1,19 +1,38 @@
 [
   {
-    "id": 100001,
-    "nombre": "Harold",
-    "correo": "a",
-    "ingresosMensuales": 1.0E11,
-    "nivelRiesgo": "ALTO",
+    "id": 100002,
+    "nombre": "Carlos",
+    "correo": "carlos201@gmail.com",
+    "ingresosMensuales": 100000.0,
+    "nivelRiesgo": "BAJO",
     "prestamos": [
       {
-        "codigo": 8,
+        "codigo": 1,
         "plazoMeses": 12,
-        "montoSolicitado": 500000.0,
-        "tasaInteresAnual": 0.01,
+        "montoSolicitado": 1000.0,
+        "tasaInteresAnual": 0.2,
         "estado": "ACTIVO",
-        "fechaInicio": "2026-04-10",
-        "pagos": []
+        "fechaInicio": "2026-01-01",
+        "pagos": [
+          {
+            "id": 1001,
+            "montoPagado": 83.42,
+            "capital": 83.26,
+            "interes": 0.17,
+            "saldoInicial": 1000.0,
+            "saldoFinal": 916.74,
+            "fechaPago": "2025-01-01"
+          },
+          {
+            "id": 1009,
+            "montoPagado": 900.0,
+            "capital": 899.84721,
+            "interes": 0.15279,
+            "saldoInicial": 916.74,
+            "saldoFinal": 16.89278999999999,
+            "fechaPago": "2026-01-01"
+          }
+        ]
       }
     ]
   }

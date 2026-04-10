@@ -81,12 +81,28 @@ public class PrestamoServicio {
     }
 
     public void eliminarPrestamo(int id) {
-        logger.info("Eliminando préstamo: " + id);
-        prestamoRepo.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Préstamo no encontrado: " + id));
-        prestamoRepo.eliminar(id);
-        logger.info("Préstamo eliminado: " + id);
-    }
+    logger.info("Eliminando préstamo: " + id);
+
+    Prestamo prestamo = prestamoRepo.buscarPorId(id)
+            .orElseThrow(() -> new RuntimeException("Préstamo no encontrado: " + id));
+
+    // 1. Eliminar del repositorio de préstamos
+    prestamoRepo.eliminar(id);
+
+    // 2. Eliminar también de la lista del socio que lo tiene
+    socioRepo.listarTodos().stream()
+            .filter(s -> s.getPrestamos() != null &&
+                         s.getPrestamos().stream()
+                          .anyMatch(p -> p.getCodigo() == prestamo.getCodigo()))
+            .findFirst()
+            .ifPresent(s -> {
+                s.getPrestamos().removeIf(p -> p.getCodigo() == prestamo.getCodigo());
+                socioRepo.actualizar(s);
+                logger.info("Préstamo " + id + " eliminado también del socio " + s.getId());
+            });
+
+    logger.info("Préstamo eliminado: " + id);
+}
 
     // ─── Lógica financiera ────────────────────────────────────────────────────
 
